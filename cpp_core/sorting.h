@@ -4,13 +4,17 @@
 #define SORTING_H
 
 template <typename T>
-auto sum(const std::vector<T> &arr);
+void insertionSort(std::vector<T>& arr);
 template <typename T>
-auto median(const std::vector<T> &arr);
+void bubbleSort(std::vector<T>& arr);
 template <typename T>
-auto mean(const std::vector<T> &arr);
+void merge(std::vector<T>& arr, int left, int mid, int right);
 template <typename T>
-auto mode(const std::vector<T> &arr);
+void mergeSort(std::vector<T>& arr, int left, int right);
+template <typename T>
+int partition(std::vector<T>& arr, int low, int high);
+template <typename T>
+void quickSort(std::vector<T>& arr, int low, int high);
 
 
 #endif // SORTING_H
