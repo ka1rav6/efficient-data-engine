@@ -12,4 +12,5 @@ PYBIND11_MODULE(data_engine, m){
     m.def("mean", &mean);
     m.def("median", &median);
     m.def("mode", &mode);    
+    m.def("matrixMultiply", &matrixMultiply);
 }

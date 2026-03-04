@@ -71,6 +71,26 @@ double mode(vector<double> arr){
     return max_elem;    
 }
 
+
+
+vector<double> matrixMultiply(const vector<double> &A, const vector<double>& B, int n){
+    if (A.size() != n * n)
+        throw invalid_argument("Matrix A size does not match n x n.");
+    if (B.size() != n * n)
+        throw invalid_argument("Matrix B size does not match n x n.");
+    
+    vector<double> C(n * n, 0.0);
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            for (int k = 0; k < n; k++) {
+                C[i * n + j] += 
+                    A[i * n + k] * 
+                    B[k * n + j];
+            }
+        }
+    }
+    return C;
+}
 int main(){
     vector<double> vec = {5.5, 2.2, 3.3, 2.2, 2.2, 1.0};
     cout << mean(vec) << endl;
