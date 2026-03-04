@@ -1,6 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.o"
   "CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.o.d"
+  "CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o"
+  "CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o.d"
+  "CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o"
+  "CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o.d"
   "data_engine.cpython-312-x86_64-linux-gnu.so"
   "data_engine.pdb"
 )

@@ -153,6 +153,54 @@ cpp_core/bindings.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.s
 .PHONY : cpp_core/bindings.cpp.s
 
+cpp_core/normal_data.o: cpp_core/normal_data.cpp.o
+.PHONY : cpp_core/normal_data.o
+
+# target to build an object file
+cpp_core/normal_data.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o
+.PHONY : cpp_core/normal_data.cpp.o
+
+cpp_core/normal_data.i: cpp_core/normal_data.cpp.i
+.PHONY : cpp_core/normal_data.i
+
+# target to preprocess a source file
+cpp_core/normal_data.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.i
+.PHONY : cpp_core/normal_data.cpp.i
+
+cpp_core/normal_data.s: cpp_core/normal_data.cpp.s
+.PHONY : cpp_core/normal_data.s
+
+# target to generate assembly for a file
+cpp_core/normal_data.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.s
+.PHONY : cpp_core/normal_data.cpp.s
+
+cpp_core/sorting.o: cpp_core/sorting.cpp.o
+.PHONY : cpp_core/sorting.o
+
+# target to build an object file
+cpp_core/sorting.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o
+.PHONY : cpp_core/sorting.cpp.o
+
+cpp_core/sorting.i: cpp_core/sorting.cpp.i
+.PHONY : cpp_core/sorting.i
+
+# target to preprocess a source file
+cpp_core/sorting.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.i
+.PHONY : cpp_core/sorting.cpp.i
+
+cpp_core/sorting.s: cpp_core/sorting.cpp.s
+.PHONY : cpp_core/sorting.s
+
+# target to generate assembly for a file
+cpp_core/sorting.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/data_engine.dir/build.make CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.s
+.PHONY : cpp_core/sorting.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -165,6 +213,12 @@ help:
 	@echo "... cpp_core/bindings.o"
 	@echo "... cpp_core/bindings.i"
 	@echo "... cpp_core/bindings.s"
+	@echo "... cpp_core/normal_data.o"
+	@echo "... cpp_core/normal_data.i"
+	@echo "... cpp_core/normal_data.s"
+	@echo "... cpp_core/sorting.o"
+	@echo "... cpp_core/sorting.i"
+	@echo "... cpp_core/sorting.s"
 .PHONY : help
 
 

@@ -83,17 +83,49 @@ CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.s"
 	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kairav-dutta/Desktop/data_engine/cpp_core/bindings.cpp -o CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.s
 
+CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o: CMakeFiles/data_engine.dir/flags.make
+CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o: /home/kairav-dutta/Desktop/data_engine/cpp_core/sorting.cpp
+CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o: CMakeFiles/data_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kairav-dutta/Desktop/data_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o -MF CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o.d -o CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o -c /home/kairav-dutta/Desktop/data_engine/cpp_core/sorting.cpp
+
+CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kairav-dutta/Desktop/data_engine/cpp_core/sorting.cpp > CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.i
+
+CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kairav-dutta/Desktop/data_engine/cpp_core/sorting.cpp -o CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.s
+
+CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o: CMakeFiles/data_engine.dir/flags.make
+CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o: /home/kairav-dutta/Desktop/data_engine/cpp_core/normal_data.cpp
+CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o: CMakeFiles/data_engine.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/kairav-dutta/Desktop/data_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o -MF CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o.d -o CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o -c /home/kairav-dutta/Desktop/data_engine/cpp_core/normal_data.cpp
+
+CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.i"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/kairav-dutta/Desktop/data_engine/cpp_core/normal_data.cpp > CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.i
+
+CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.s"
+	/usr/bin/c++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/kairav-dutta/Desktop/data_engine/cpp_core/normal_data.cpp -o CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.s
+
 # Object files for target data_engine
 data_engine_OBJECTS = \
-"CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.o"
+"CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.o" \
+"CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o" \
+"CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o"
 
 # External object files for target data_engine
 data_engine_EXTERNAL_OBJECTS =
 
 data_engine.cpython-312-x86_64-linux-gnu.so: CMakeFiles/data_engine.dir/cpp_core/bindings.cpp.o
+data_engine.cpython-312-x86_64-linux-gnu.so: CMakeFiles/data_engine.dir/cpp_core/sorting.cpp.o
+data_engine.cpython-312-x86_64-linux-gnu.so: CMakeFiles/data_engine.dir/cpp_core/normal_data.cpp.o
 data_engine.cpython-312-x86_64-linux-gnu.so: CMakeFiles/data_engine.dir/build.make
 data_engine.cpython-312-x86_64-linux-gnu.so: CMakeFiles/data_engine.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kairav-dutta/Desktop/data_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Linking CXX shared module data_engine.cpython-312-x86_64-linux-gnu.so"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/kairav-dutta/Desktop/data_engine/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX shared module data_engine.cpython-312-x86_64-linux-gnu.so"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/data_engine.dir/link.txt --verbose=$(VERBOSE)
 	/usr/bin/strip /home/kairav-dutta/Desktop/data_engine/build/data_engine.cpython-312-x86_64-linux-gnu.so
 

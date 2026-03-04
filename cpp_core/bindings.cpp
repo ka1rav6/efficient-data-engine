@@ -1,10 +1,15 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include "sorting.h"
+#include "normal_data.h"
+namespace py = pybind11;
 
-int add(int a, int b) {
-    return a + b;
+PYBIND11_MODULE(data_engine, m){
+    m.def("quickSort", &quickSort);
+    m.def("insertionSort", &insertionSort);
+    m.def("bubbleSort", &bubbleSort);
+    m.def("sum", &sum);
+    m.def("mean", &mean);
+    m.def("median", &median);
+    m.def("mode", &mode);    
 }
-
-PYBIND11_MODULE(data_engine, m) {
-    m.def("add", &add);
-} // basic for now just for testing and establishing

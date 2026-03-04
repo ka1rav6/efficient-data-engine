@@ -1,40 +1,25 @@
 #include <iostream>
 #include <vector>
 using namespace std;
-template <typename T>
-auto sum(const vector<T> &arr){
-    T sum =0;
-    for (auto num: arr){
+
+double sum(const vector<double> &arr){
+    double sum =0;
+    for (double num: arr){
         sum+=num;
     }
     return sum;
 }
-template <typename T>
-auto mean(const vector<T> &arr){
-    auto summation = sum(arr); 
+double mean(const vector<double> &arr){
+    double summation = sum(arr); 
     return summation/((double)arr.size());
 }
-template <typename T>
-auto median(vector<T> arr) {  // pass by value (copy)
-    mergeSort(arr, 0, arr.size() - 1);
-
-    int len = arr.size();
-
-    if (len % 2) {  // odd
-        return arr[len / 2];
-    }
-
-    return (arr[len/2 - 1] + arr[len/2]) / static_cast<double>(2);
-}
-
-template <typename T>
-void mergeSort(vector<T> &arr, int left, int right) {
+void merge_sort(vector<double> &arr, int left, int right) {
     if (left < right) {
         int mid = left + (right - left) / 2;
-        mergeSort(arr, left, mid);
-        mergeSort(arr, mid + 1, right);
+        merge_sort(arr, left, mid);
+        merge_sort(arr, mid + 1, right);
         
-        vector<T> temp;
+        vector<double> temp;
         int i = left, j = mid + 1;
         while (i <= mid && j <= right) {
             if (arr[i] <= arr[j]) {
@@ -54,12 +39,22 @@ void mergeSort(vector<T> &arr, int left, int right) {
         }
     }
 }
+double median(vector<double> arr) {  // pass by value (copy)
+    merge_sort(arr, 0, arr.size() - 1);
 
-template <typename T>
-auto mode(vector<T> arr){
-    mergeSort(arr, 0, arr.size()-1);
-    int freq_max=0, freq=1;
-    T max_elem= arr.at(0);
+    int len = arr.size();
+
+    if (len % 2) {  // odd
+        return arr[len / 2];
+    }
+
+    return (arr[len/2 - 1] + arr[len/2]) / static_cast<double>(2);
+}
+
+double mode(vector<double> arr){
+    merge_sort(arr, 0, arr.size()-1);
+    int freq_max=1, freq=1;
+    double max_elem= arr.at(0);
     for (int i = 1; i<arr.size(); i++){
         if (arr.at(i-1)==arr.at(i)){
             freq++;
@@ -74,7 +69,6 @@ auto mode(vector<T> arr){
     }
     return max_elem;    
 }
-
 
 int main(){
     vector<double> vec = {5.5, 2.2, 3.3, 2.2, 2.2, 1.0};

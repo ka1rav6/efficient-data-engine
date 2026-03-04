@@ -1,0 +1,11 @@
+#include <vector>
+
+#ifndef NORMAL_DATA_H
+#define NORMAL_DATA_H
+
+double sum(const std::vector<double> &arr);
+double mean(const std::vector<double> &arr);
+double median(std::vector<double> arr);
+double mode(std::vector<double> arr);
+
+#endif
