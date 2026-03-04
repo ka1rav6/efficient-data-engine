@@ -18,7 +18,17 @@ vector<double> insertionSort(vector<double> arr) {
     }
     return arr;
 }
-
+/* ---------- BUBBLE SORT --------*/
+std::vector<double> bubbleSort(std::vector<double> arr) {
+    int n = arr.size();
+    for (int i = 0; i < n-1; i++) {
+        for (int j = 0; j < n-i-1; j++) {
+            if (arr[j] > arr[j+1])
+                std::swap(arr[j], arr[j+1]);
+        }
+    }
+    return arr;
+}
 /* ---------- QUICK SORT ---------- */
 
 int partition(vector<double>& arr, int low, int high) {

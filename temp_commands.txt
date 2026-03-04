@@ -1,0 +1,16 @@
+g++ -O3 -Wall -shared -std=c++17 -fPIC \
+    bindings.cpp sorting.cpp normal_data.cpp \
+    $(python3 -m pybind11 --includes) \
+    -o data_engine$(python3-config --extension-suffix)
+
+
+
+
+    
+rm -rf build
+mkdir build
+cd build
+cmake ..
+make
+
+

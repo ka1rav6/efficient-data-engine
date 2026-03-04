@@ -55,7 +55,8 @@ double mode(vector<double> arr){
     merge_sort(arr, 0, arr.size()-1);
     int freq_max=1, freq=1;
     double max_elem= arr.at(0);
-    for (int i = 1; i<arr.size(); i++){
+    int len = arr.size();
+    for (int i = 1; i<len; i++){
         if (arr.at(i-1)==arr.at(i)){
             freq++;
             if (freq>freq_max) {
