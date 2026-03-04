@@ -12,4 +12,39 @@ You can upload a basic csv file (give filepath) that contains data which will ha
 - Calculate of a particular statistical tendency of all the labels
 - The same for any particular label
 
+## List of commands:
+
+<strong>
+NOTE: 
+datatype: int or float
+<br> data: either space separated or comma separated </strong> 
+
+### NORMAL MODE:
+
+>  - `matmul` "datatype"     "number_of_matrices"
+
+>  - `mean`  data 
+
+>  - `median` data  (similarly for other tendencies)
+
+>  - `std_dev` data  
+
+>  - `var` data
+
+Can calculate more than one tendency too
+
+>  - `mode` `std_dev` data
+
+### FILE MODE:
+>  - `load`
+
+After this, a prompt allows giving the file path.
+Make sure your label has no spaces.
+
+>  - `mean` label
+>  - `mean`  (for overall file)
+>  - `median` label2
+
+>  - `file.close` to close the file and go back to normal mode
+
 
