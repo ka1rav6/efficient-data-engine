@@ -1,4 +1,4 @@
-import data_engine as de
+import data_engine as de # type: ignore   ## to ignore the warning error 
 import errorHandling as err
 ############ BASIC PROCESSING ##############
 def process(command):
@@ -161,7 +161,6 @@ def std_devData(command):
     print(f"The Standard Deviation of the data is: {de.std_dev(data)}")
 
 
-
 ################# IDENTIFICATION ##################
 
 def identify(command):
@@ -175,59 +174,155 @@ def identify(command):
         case "var": return varData
         case "std_dev": return std_devData
         case "load": return load
+        case "quicksort": return quickSort
+        case "bubblesort": return bubbleSort
+        case "insertionsort": return insertionSort
         case "exit": exit()
-        case _: invalid
-def invalid():
+        case _: raise err.InvalidInstructionTypeError(f"{command[0]} is not a valid command")
+def invalid(command):
     print("Please Enter a vaild command")
+###################### SORTING ##############
+def quickSort(command):
+    if len(command) <3:
+        raise err.InvalidInstructionTypeError("'quickSort' should have atleast another argument")
+    data = command[2:]
+    try:
+        if command[1]=="int":
+            data = list(map(int, data))
+        else:
+            data = list(map(float, data))
+    except:
+        raise TypeError("Only int and float allowed")
+    data = de.quickSort(data)
+    print("The sorted array is:\n", *data)
+def bubbleSort(command):
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError("'quickSort' should have atleast another argument")
+    data = command[2:]
+    try:
+        if command[1]=="int":
+            data = list(map(int, data))
+        else:
+            data = list(map(float, data))
+    except:
+        raise TypeError("Only int and float allowed")
+    data = de.bubbleSort(data)
+    print("The sorted array is:\n", *data)
+def insertionSort(command):
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError("'quickSort' should have atleast another argument")
+    data = command[2:]
+    try:
+        if command[1]=="int":
+            data = list(map(int, data))
+        else:
+            data = list(map(float, data))
+    except:
+        raise TypeError("Only int and float allowed")
+    data = de.quickSort(data)
+    print("The sorted array is:\n", *data)
+
+########### FILE HANDLING #####################
 import sys
 def identifyFileCommand(command):
-    match command:
-        case "file.close": sys.exit(0)
-        case "mean": return wholeMean
-        case "median": return wholeMedian
-        case "mode": return wholeMode
-        case "var": return wholeVar
-        case "std_dev": return wholeStd_dev
-    # else:
-    #     match command[0]:
-    #         case "mean": labelMean
-    #         case "median": labelMedian
-    #         case "mode": labelMode
-    #         case "var": labelVar
-    #         case "std_dev": labelStd_dev
-
-
+    if len(command)==1:
+        match command[0]:
+            case "file.close": sys.exit(0)
+            case "mean": return wholeMean
+            case "median": return wholeMedian
+            case "mode": return wholeMode
+            case "var": return wholeVar
+            case "std_dev": return wholeStd_dev
+            case "exit": sys.exit(0)
+            case "_": raise err.InvalidInstructionTypeError(f"{command[0]} is not a valid command")
+    else:
+        match command[0]:
+            case "mean": return labelMean
+            case "median": return labelMedian
+            case "mode": return labelMode
+            case "var": return labelVar
+            case "std_dev": return labelStd_dev
+            case "_": raise err.InvalidInstructionTypeError(f"{command[0]} is not a valid command")
+def labelMean(file, command):
+    meanList = de.meanWhole(file)
+    labelList = de.getLabels(file)
+    
+    label = "".join(command[1:])
+    label = label.capitalize()
+    print(labelList)
+    if label in labelList:
+        idx = labelList.index(label)
+        print(f"Mean: {meanList[idx]:.2f}")
+def labelMedian(file, command):
+    medianList = de.medianWhole(file)
+    labelList = de.getLabels(file)
+    
+    label = "".join(command[1:])
+    label = label.capitalize()
+    print(labelList)
+    if label in labelList:
+        idx = labelList.index(label)
+        print(f"Median: {medianList[idx]:.2f}")
+def labelMode(file, command):
+    modeList = de.modeWhole(file)
+    labelList = de.getLabels(file)
+    
+    label = "".join(command[1:])
+    label = label.capitalize()
+    print(labelList)
+    if label in labelList:
+        idx = labelList.index(label)
+        print(f"Mode: {modeList[idx]:.2f}")
+def labelVar(file, command):
+    varList = de.varWhole(file)
+    labelList = de.getLabels(file)
+    
+    label = "".join(command[1:])
+    label = label.capitalize()
+    print(labelList)
+    if label in labelList:
+        idx = labelList.index(label)
+        print(f"Var: {varList[idx]:.2f}")
+def labelStd_dev(file, command):
+    std_devList = de.std_devWhole(file)
+    labelList = de.getLabels(file)
+    
+    label = "".join(command[1:])
+    label = label.capitalize()
+    print(labelList)
+    if label in labelList:
+        idx = labelList.index(label)
+        print(f"Standard Deviation: {std_devList[idx]:.2f}")
         
 def load(command):
     fileName = input("Enter the file path: ")
     print("Enter commands:")
     while True:
-        command1 = input("\t>>>>")
-        process(command1)
+        command1 = input("\t>>>>  ")
+        command1 = process(command1)
         func = identifyFileCommand(command1)
-        func(fileName)
-
-def wholeMean(file):
+        func(fileName, command1)
+def wholeMean(file, command):
     meanList = de.meanWhole(file)
     labelList = de.getLabels(file)
     for i in range(len(labelList)):
         print(f"Label: {labelList[i]}, mean: {meanList[i]:.2f}")
-def wholeMedian(file):
+def wholeMedian(file, command):
     medianList = de.medianWhole(file)
     labelList = de.getLabels(file)
     for i in range(len(labelList)):
         print(f"Label: {labelList[i]}, median: {medianList[i]:.2f}")
-def wholeMode(file):
+def wholeMode(file, command):
     modeList = de.modeWhole(file)
     labelList = de.getLabels(file)
     for i in range(len(labelList)):
         print(f"Label: {labelList[i]}, mode: {modeList[i]:.2f}")
-def wholeVar(file):
+def wholeVar(file, command):
     varList = de.varWhole(file)
     labelList = de.getLabels(file)
     for i in range(len(labelList)):
         print(f"Label: {labelList[i]}, variance: {varList[i]:.2f}")
-def wholeStd_dev(file):
+def wholeStd_dev(file, command):
     stdList = de.std_devWhole(file)
     labelList = de.getLabels(file)
     for i in range(len(labelList)):

@@ -24,4 +24,7 @@ PYBIND11_MODULE(data_engine, m){
     m.def("modeWhole", &modeWhole);
     m.def("varWhole", &varWhole);
     m.def("std_devWhole", &std_devWhole);
+    m.def("insertionSort", &insertionSort);
+    m.def("bubbleSort", &bubbleSort);
+    m.def("quickSort", &quickSort);
 }

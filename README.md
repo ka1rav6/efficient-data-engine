@@ -33,10 +33,13 @@ datatype: int or float
 
 >  - `clear` OR `cls` to clear the screen before continuing
 
-Can calculate more than one tendency too
 
->  - `mode` `std_dev` data
+### Sorting Mode:
+>  - `quicksort` "datatype" data
 
+>  - `insertionsort` "datatype" data
+
+>  - `bubblesort` "datatype" data
 ### FILE MODE:
 >  - `load`
 
