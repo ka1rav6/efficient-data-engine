@@ -176,8 +176,59 @@ def identify(command):
         case "std_dev": return std_devData
         case "load": return load
         case "exit": exit()
+        case _: invalid
+def invalid():
+    print("Please Enter a vaild command")
+import sys
+def identifyFileCommand(command):
+    match command:
+        case "file.close": sys.exit(0)
+        case "mean": return wholeMean
+        case "median": return wholeMedian
+        case "mode": return wholeMode
+        case "var": return wholeVar
+        case "std_dev": return wholeStd_dev
+    # else:
+    #     match command[0]:
+    #         case "mean": labelMean
+    #         case "median": labelMedian
+    #         case "mode": labelMode
+    #         case "var": labelVar
+    #         case "std_dev": labelStd_dev
+
 
         
+def load(command):
+    fileName = input("Enter the file path: ")
+    print("Enter commands:")
+    while True:
+        command1 = input("\t>>>>")
+        process(command1)
+        func = identifyFileCommand(command1)
+        func(fileName)
 
-    
-
+def wholeMean(file):
+    meanList = de.meanWhole(file)
+    labelList = de.getLabels(file)
+    for i in range(len(labelList)):
+        print(f"Label: {labelList[i]}, mean: {meanList[i]:.2f}")
+def wholeMedian(file):
+    medianList = de.medianWhole(file)
+    labelList = de.getLabels(file)
+    for i in range(len(labelList)):
+        print(f"Label: {labelList[i]}, median: {medianList[i]:.2f}")
+def wholeMode(file):
+    modeList = de.modeWhole(file)
+    labelList = de.getLabels(file)
+    for i in range(len(labelList)):
+        print(f"Label: {labelList[i]}, mode: {modeList[i]:.2f}")
+def wholeVar(file):
+    varList = de.varWhole(file)
+    labelList = de.getLabels(file)
+    for i in range(len(labelList)):
+        print(f"Label: {labelList[i]}, variance: {varList[i]:.2f}")
+def wholeStd_dev(file):
+    stdList = de.std_devWhole(file)
+    labelList = de.getLabels(file)
+    for i in range(len(labelList)):
+        print(f"Label: {labelList[i]}, Standard Deviation: {stdList[i]:.2f}")

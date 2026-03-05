@@ -2,6 +2,7 @@
 #include <pybind11/stl.h>
 #include "sorting.h"
 #include "normal_data.h"
+#include "fileProcessing.h"
 namespace py = pybind11;
 
 PYBIND11_MODULE(data_engine, m){
@@ -17,4 +18,10 @@ PYBIND11_MODULE(data_engine, m){
     m.def("matrixMultiply", &matrixMultiply);
     m.def("matrixAdd", &matrixAdd);
     m.def("matrixSubtract", &matrixSubtract);
+    m.def("getLabels", &getLabels);
+    m.def("meanWhole", &meanWhole);
+    m.def("medianWhole", &medianWhole);
+    m.def("modeWhole", &modeWhole);
+    m.def("varWhole", &varWhole);
+    m.def("std_devWhole", &std_devWhole);
 }
