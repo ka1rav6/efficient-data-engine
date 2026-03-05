@@ -1,5 +1,6 @@
 #include <iostream>
 #include <vector>
+#include <cmath>
 using namespace std;
 
 double sum(const vector<double> &arr){
@@ -70,7 +71,18 @@ double mode(vector<double> arr){
     }
     return max_elem;    
 }
-
+double var(vector<double> &arr){
+    double mean_val = mean(arr);
+    double sum_sq = 0;
+    for (double num : arr) {
+        sum_sq += (num - mean_val) * (num - mean_val);
+    }
+    return sum_sq / arr.size();
+}
+double std_dev(vector<double> &arr){
+    double varVal = var(arr);
+    return sqrt(varVal);
+}
 
 
 vector<double> matrixMultiply(const vector<double> &A, const vector<double>& B, int n){
