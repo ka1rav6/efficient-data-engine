@@ -87,12 +87,9 @@ def matsub(command):
 ################# Standard Data ###################
 
 def statData(command, func, name):
-
     if len(command) == 1:
         raise err.InvalidInstructionTypeError
-
     data = list(map(float, command[1:]))
-
     print(f"{name}:", func(data))
 
 def meanData(command): statData(command, de.mean, "Mean")
@@ -100,11 +97,21 @@ def medianData(command): statData(command, de.median, "Median")
 def modeData(command): statData(command, de.mode, "Mode")
 def varData(command): statData(command, de.var, "Variance")
 def stdData(command): statData(command, de.std_dev, "Std Dev")
+def minimumData(command): statData(command, de.min, "Minimum")
+def maximumData(command): statData(command, de.max, "Maximum")
+def rangeData(command): statData(command, de.range, "Range")
 
+def statDataMore(command, func, name):
+    if len(command) < 3:
+        raise err.InvalidInstructionTypeError
+    val = float(command[1])
+    data = list(map(float, command[2:]))
+    print(f"{name}:", func(data, val))
+def zscoreData(command): statDataMore(command, de.zscore, "Zscore")
+def percentileData(command): statDataMore(command, de.percentile, "Percentile")
 ################# IDENTIFICATION ##################
 
 def identify(command):
-
     if command[0] == "exit":
         sys.exit()
     if command[0] not in COMMANDS:
@@ -113,18 +120,15 @@ def identify(command):
 
 ###################### SORTING ##############
 def sortData(command, sorter):
-
     if len(command) < 3:
         raise err.InvalidInstructionTypeError
-
     if command[1] == "int":
         data = list(map(int, command[2:]))
     else:
         data = list(map(float, command[2:]))
-
     data = sorter(data)
-
     print("Sorted:", *data)
+    
 def quickSort(command): sortData(command, de.quickSort)
 def bubbleSort(command): sortData(command, de.bubbleSort)
 def insertionSort(command): sortData(command, de.insertionSort)
@@ -160,7 +164,10 @@ FILE_STATS = {
     "median": de.medianWhole,
     "mode": de.modeWhole,
     "var": de.varWhole,
-    "std_dev": de.std_devWhole
+    "std_dev": de.std_devWhole,
+    "min": de.min,
+    "max": de.max,
+    "range": de.range
 }
 def wholeStat(file, command):
     stat = command[0]
@@ -175,7 +182,12 @@ FILE_COMMANDS = {
     "mode": (wholeStat, labelStat),
     "var": (wholeStat, labelStat),
     "std_dev": (wholeStat, labelStat),
+    "min" : (wholeStat, labelStat),
+    "max" : (wholeStat, labelStat),
+    "range" : (wholeStat, labelStat),
+
 }
+
 COMMANDS = {
     "matmul": matmul,
     "matadd": matadd,
@@ -189,4 +201,9 @@ COMMANDS = {
     "quicksort": quickSort,
     "bubblesort": bubbleSort,
     "insertionsort": insertionSort,
+    "min": minimumData,
+    "max": maximumData,
+    "range": rangeData,
+    "percentile": percentileData,
+    "zscore": zscoreData,
 }

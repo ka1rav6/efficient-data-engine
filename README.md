@@ -31,7 +31,19 @@ datatype: int or float
 
 >  - `var` data
 
+>  - `min` data
+
+>  - `max` data
+
+>  - `range` data
+
+>  - `zscore` "val" data
+
+>  - `percentlie` "val" data
+
 >  - `clear` OR `cls` to clear the screen before continuing
+
+>  - `help` to print all commands
 
 
 ### Sorting Mode:

@@ -14,6 +14,11 @@ PYBIND11_MODULE(data_engine, m){
     m.def("median", &median);
     m.def("mode", &mode);    
     m.def("var", &var);    
+    m.def("min", &mini);    
+    m.def("max", &maxi);    
+    m.def("range", &range);    
+    m.def("zscore", &zscore);    
+    m.def("percentile", &percentile);    
     m.def("std_dev", &std_dev);
     m.def("matrixMultiply", &matrixMultiply);
     m.def("matrixAdd", &matrixAdd);

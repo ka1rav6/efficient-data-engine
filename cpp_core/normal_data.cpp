@@ -71,7 +71,7 @@ double mode(vector<double> arr){
     }
     return max_elem;    
 }
-double var(vector<double> &arr){
+double var(const vector<double> &arr){
     double mean_val = mean(arr);
     double sum_sq = 0;
     for (double num : arr) {
@@ -79,7 +79,7 @@ double var(vector<double> &arr){
     }
     return sum_sq / arr.size();
 }
-double std_dev(vector<double> &arr){
+double std_dev(const vector<double> &arr){
     double varVal = var(arr);
     return sqrt(varVal);
 }
@@ -136,9 +136,36 @@ vector<double> matrixSubtract(const vector<double> &A, const vector<double> &B, 
     }
     return C;
 }
+double mini(const vector<double> &A){
+    double minimum=A.at(0);
+    for (double elem: A){
+        if (elem<minimum) elem =minimum;
+    }
+    return minimum;
+}
 
+double maxi(const vector<double> &A){
+    double maximum=A.at(0);
+    for (double elem: A){
+        if (elem>maximum) elem =maximum;
+    }
+    return maximum;
+}
+double range(const vector<double> &A){
+    return maxi(A)-mini(A);
+}
+double percentile(const vector<double> &A, double val){
+    int below_val =0;
+    int len = A.size();
+    for (double elem: A){
+        if (elem<val) below_val++;
 
-
+    }
+    return ((double)below_val / len) * 100;
+}
+double zscore(const vector<double> &A, double val){
+    return (val - mean(A))/std_dev(A);
+}
 
 int main(){
     vector<double> vec = {5.5, 2.2, 3.3, 2.2, 2.2, 1.0};
