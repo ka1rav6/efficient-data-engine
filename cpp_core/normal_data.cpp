@@ -86,9 +86,11 @@ double std_dev(vector<double> &arr){
 
 
 vector<double> matrixMultiply(const vector<double> &A, const vector<double>& B, int n){
-    if (A.size() != n * n)
+    int a= A.size();
+    int b = B.size();
+    if (a != n * n)
         throw invalid_argument("Matrix A size does not match n x n.");
-    if (B.size() != n * n)
+    if (b != n * n)
         throw invalid_argument("Matrix B size does not match n x n.");
     
     vector<double> C(n * n, 0.0);
@@ -103,6 +105,41 @@ vector<double> matrixMultiply(const vector<double> &A, const vector<double>& B, 
     }
     return C;
 }
+
+vector<double> matrixAdd(const vector<double> &A, const vector<double> &B, int r, int c){
+    int a= A.size();
+    int b = B.size();
+    if (a != r * c)
+        throw invalid_argument("Matrix A size does not match r x c.");
+    if (b != r * c)
+        throw invalid_argument("Matrix B size does not match r x c.");
+    vector <double> C(r*c, 0.0);
+    for(int i=0; i<r; i++){
+        for(int j=0; j<c;j++){
+            C[i*c+j] = A[i*c+j] + B[i*c +j];
+        }
+    }
+    return C;
+}
+vector<double> matrixSubtract(const vector<double> &A, const vector<double> &B, int r, int c){
+    int a= A.size();
+    int b = B.size();
+    if (a != r * c)
+        throw invalid_argument("Matrix A size does not match r x c.");
+    if (b != r * c)
+        throw invalid_argument("Matrix B size does not match r x c.");
+    vector <double> C(r*c, 0.0);
+    for(int i=0; i<r; i++){
+        for(int j=0; j<c;j++){
+            C[i*c+j] = A[i*c+j] - B[i*c +j];
+        }
+    }
+    return C;
+}
+
+
+
+
 int main(){
     vector<double> vec = {5.5, 2.2, 3.3, 2.2, 2.2, 1.0};
     cout << mean(vec) << endl;

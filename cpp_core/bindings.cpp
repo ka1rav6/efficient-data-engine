@@ -15,4 +15,6 @@ PYBIND11_MODULE(data_engine, m){
     m.def("var", &var);    
     m.def("std_dev", &std_dev);
     m.def("matrixMultiply", &matrixMultiply);
+    m.def("matrixAdd", &matrixAdd);
+    m.def("matrixSubtract", &matrixSubtract);
 }

@@ -9,9 +9,11 @@ def process(command):
 ################# MATRIX ####################
 def flatten(mat):
     return [elem for row in mat for elem in row]
-def reshape(flat, r):
-    return [flat[i*r:(i+1)*r] for i in range(r)]
+def reshape(flat, n):
+    return [flat[i*n:(i+1)*n] for i in range(n)]
 def matmul(command):
+    if (len(command) <2):
+        raise err.InvalidInstructionTypeError("'matadd' cannot have less than 2 arguments")
     matrices = int(command[2])
     if matrices <2:
         raise err.LowMatrixCountError("Cannot have number of matrices to be less than 2")
@@ -19,10 +21,11 @@ def matmul(command):
     r = int(input("Enter rows or Columns of the square matrix: "))
     for i in range(matrices):
         temp = []
+        print(f"Enter rows for matrix {i+1}:")
         for j in range(r):
             while True:
                 try:
-                    tempRow = list(map(int, input(f"Enter row {i} ").strip().split()))
+                    tempRow = list(map(int, input(f"Enter row {j+1}: ").strip().split()))
                     break
                 except:
                     print("Please enter valid input")
@@ -33,9 +36,11 @@ def matmul(command):
                 temp.append(tempRow)
             else:
                 final.append(tempRow)
+        if isinstance(final[0], list):
+            final = flatten(final)
         if i!=0:
-            final = de.matrixMultiply(flatten(final), flatten(temp), r)
-            final = reshape(final, r)
+            final = de.matrixMultiply(final, flatten(temp), r)
+    final = reshape(final, r)
     outputMatrix(command, final)
 
 def outputMatrix(command, final):
@@ -47,12 +52,77 @@ def outputMatrix(command, final):
         printMatrix(final)
 
 def printMatrix(matrix):
-    for i in range(len(matrix)):
-        print(" ".join(map(str, matrix[i])))
+    for row in matrix:
+        for val in row:
+            print(f"{val:.2f}", end=" ")
+        print()
+def reshape(flat, r, c):
+    return [flat[i*c:(i+1)*c] for i in range(r)]
 def matadd(command):
-    pass  
+    if (len(command) <2):
+        raise err.InvalidInstructionTypeError("'matadd' cannot have less than 2 arguments")
+    matrices = int(command[2])
+    if matrices <2:
+        raise err.LowMatrixCountError("Cannot have number of matrices to be less than 2")
+    final =[]
+    r = int(input("Enter number of rows of the matrix: ")) 
+    c = int(input("Enter number of columns of the matrix: "))
+    for i in range(matrices):
+        print(f"Enter rows for matrix {i+1}:")
+        temp = []
+        for j in range(r):
+            while True:
+                try:
+                    tempRow = list(map(float, input(f"Enter row {j+1}: ").strip().split()))
+                    break
+                except:
+                    print("Please enter valid input")
+            if len(tempRow) != c:
+                raise err.MatrixInputInconsistencyError(f"Column length is not {c}")
+            tempRow = list(map(float, tempRow))
+            if i!=0:
+                temp.append(tempRow)
+            else:
+                final.append(tempRow)
+        if isinstance(final[0], list):
+            final = flatten(final)
+        if i!=0:
+            final = de.matrixAdd(final, flatten(temp), r, c)
+    final = reshape(final, r, c)
+    outputMatrix(command, final)
+
 def matsub(command):
-    pass  
+    if (len(command) <2):
+        raise err.InvalidInstructionTypeError("'matadd' cannot have less than 2 arguments")
+    matrices = int(command[2])
+    if matrices <2:
+        raise err.LowMatrixCountError("Cannot have number of matrices to be less than 2")
+    final =[]
+    r = int(input("Enter number of rows of the matrix: ")) 
+    c = int(input("Enter number of columns of the matrix: "))
+    for i in range(matrices):
+        temp = []
+        print(f"Enter rows for matrix {i+1}:")
+        for j in range(r):
+            while True:
+                try:
+                    tempRow = list(map(float, input(f"Enter row {j+1} ").strip().split()))
+                    break
+                except:
+                    print("Please enter valid input")
+            if len(tempRow) != c:
+                raise err.MatrixInputInconsistencyError(f"Column length is not {c}")
+            tempRow = list(map(float, tempRow))
+            if i!=0:
+                temp.append(tempRow)
+            else:
+                final.append(tempRow)
+        if isinstance(final[0], list):
+            final = flatten(final)
+        if i!=0:
+            final = de.matrixSubtract(final, flatten(temp), r, c)
+    final = reshape(final, r, c)
+    outputMatrix(command, final)
 
 ################# Standard Data ###################
 
@@ -76,7 +146,19 @@ def modeData(command):
     data = command[1:]
     data = list(map(float, data))
     print(f"The mode of the data is: {de.mode(data)}")
+def varData(command):
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError("'var' should have atleast another argument")
+    data = command[1:]
+    data = list(map(float, data))
+    print(f"The var of the data is: {de.var(data)}")
 
+def std_devData(command):
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError("'std_dev' should have atleast another argument")
+    data = command[1:]
+    data = list(map(float, data))
+    print(f"The Standard Deviation of the data is: {de.std_dev(data)}")
 
 
 

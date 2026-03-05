@@ -10,4 +10,7 @@ double mode(std::vector<double> arr);
 double var(std::vector<double> &arr);
 double std_dev(std::vector<double> &arr);
 std::vector<double> matrixMultiply(const std::vector<double> &A, const std::vector<double>& B, int n);
+std::vector<double> matrixAdd(const std::vector<double> &A, const std::vector<double> &B, int r, int c);
+std::vector<double> matrixSubtract(const std::vector<double> &A, const std::vector<double> &B, int r, int c);
+
 #endif
