@@ -1,5 +1,6 @@
 import data_engine as de # type: ignore   ## to ignore the warning error 
 import errorHandling as err
+
 ############ BASIC PROCESSING ##############
 def process(command):
     command = command.strip().split()
@@ -53,247 +54,83 @@ def outputMatrix(command, final):
 
 def printMatrix(matrix):
     for row in matrix:
-        for val in row:
-            print(f"{val:.2f}", end=" ")
-        print()
+        print(*(f"{v:.2f}" for v in row))
 def reshape(flat, r, c):
     return [flat[i*c:(i+1)*c] for i in range(r)]
-def matadd(command):
-    if (len(command) <2):
-        raise err.InvalidInstructionTypeError("'matadd' cannot have less than 2 arguments")
+def matrixOperation(command, operation):
     matrices = int(command[2])
-    if matrices <2:
-        raise err.LowMatrixCountError("Cannot have number of matrices to be less than 2")
-    final =[]
-    r = int(input("Enter number of rows of the matrix: ")) 
-    c = int(input("Enter number of columns of the matrix: "))
+    r = int(input("Rows: "))
+    c = int(input("Columns: "))
+    final = []
     for i in range(matrices):
-        print(f"Enter rows for matrix {i+1}:")
         temp = []
+        print(f"Matrix {i+1}")
         for j in range(r):
-            while True:
-                try:
-                    tempRow = list(map(float, input(f"Enter row {j+1}: ").strip().split()))
-                    break
-                except:
-                    print("Please enter valid input")
-            if len(tempRow) != c:
-                raise err.MatrixInputInconsistencyError(f"Column length is not {c}")
-            tempRow = list(map(float, tempRow))
-            if i!=0:
-                temp.append(tempRow)
+            row = list(map(float, input(f"Row {j+1}: ").split()))
+            if len(row) != c:
+                raise err.MatrixInputInconsistencyError
+            if i == 0:
+                final.append(row)
             else:
-                final.append(tempRow)
+                temp.append(row)
         if isinstance(final[0], list):
             final = flatten(final)
-        if i!=0:
-            final = de.matrixAdd(final, flatten(temp), r, c)
+        if i != 0:
+            final = operation(final, flatten(temp), r, c)
     final = reshape(final, r, c)
-    outputMatrix(command, final)
+    printMatrix(final)
+def matadd(command):
+    matrixOperation(command, de.matrixAdd)
 
 def matsub(command):
-    if (len(command) <2):
-        raise err.InvalidInstructionTypeError("'matadd' cannot have less than 2 arguments")
-    matrices = int(command[2])
-    if matrices <2:
-        raise err.LowMatrixCountError("Cannot have number of matrices to be less than 2")
-    final =[]
-    r = int(input("Enter number of rows of the matrix: ")) 
-    c = int(input("Enter number of columns of the matrix: "))
-    for i in range(matrices):
-        temp = []
-        print(f"Enter rows for matrix {i+1}:")
-        for j in range(r):
-            while True:
-                try:
-                    tempRow = list(map(float, input(f"Enter row {j+1} ").strip().split()))
-                    break
-                except:
-                    print("Please enter valid input")
-            if len(tempRow) != c:
-                raise err.MatrixInputInconsistencyError(f"Column length is not {c}")
-            tempRow = list(map(float, tempRow))
-            if i!=0:
-                temp.append(tempRow)
-            else:
-                final.append(tempRow)
-        if isinstance(final[0], list):
-            final = flatten(final)
-        if i!=0:
-            final = de.matrixSubtract(final, flatten(temp), r, c)
-    final = reshape(final, r, c)
-    outputMatrix(command, final)
-
+    matrixOperation(command, de.matrixSubtract)
 ################# Standard Data ###################
 
+def statData(command, func, name):
 
-def meanData(command):
-    if len(command)== 1:
-        raise err.InvalidInstructionTypeError("'mean' should have atleast another argument")
-    data = command[1:]
-    data = list(map(float, data)) 
-    print(f"The mean of the data is: {de.mean(data)}")
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError
 
-def medianData(command):
-    if len(command) == 1:
-        raise err.InvalidInstructionTypeError("'median' should have atleast another argument")
-    data = command[1:]
-    data = list(map(float, data))
-    print(f"The median of thee data is: {de.median(data)}")
-def modeData(command):
-    if len(command) == 1:
-        raise err.InvalidInstructionTypeError("'mode' should have atleast another argument")
-    data = command[1:]
-    data = list(map(float, data))
-    print(f"The mode of the data is: {de.mode(data)}")
-def varData(command):
-    if len(command) == 1:
-        raise err.InvalidInstructionTypeError("'var' should have atleast another argument")
-    data = command[1:]
-    data = list(map(float, data))
-    print(f"The var of the data is: {de.var(data)}")
+    data = list(map(float, command[1:]))
 
-def std_devData(command):
-    if len(command) == 1:
-        raise err.InvalidInstructionTypeError("'std_dev' should have atleast another argument")
-    data = command[1:]
-    data = list(map(float, data))
-    print(f"The Standard Deviation of the data is: {de.std_dev(data)}")
+    print(f"{name}:", func(data))
 
+def meanData(command): statData(command, de.mean, "Mean")
+def medianData(command): statData(command, de.median, "Median")
+def modeData(command): statData(command, de.mode, "Mode")
+def varData(command): statData(command, de.var, "Variance")
+def stdData(command): statData(command, de.std_dev, "Std Dev")
 
 ################# IDENTIFICATION ##################
 
 def identify(command):
-    match command[0]:
-        case "matmul": return matmul
-        case "matadd": return matadd
-        case "matsub": return matsub
-        case "mean": return meanData
-        case "median": return medianData
-        case "mode": return modeData
-        case "var": return varData
-        case "std_dev": return std_devData
-        case "load": return load
-        case "quicksort": return quickSort
-        case "bubblesort": return bubbleSort
-        case "insertionsort": return insertionSort
-        case "exit": exit()
-        case _: raise err.InvalidInstructionTypeError(f"{command[0]} is not a valid command")
-def invalid(command):
-    print("Please Enter a vaild command")
+
+    if command[0] == "exit":
+        sys.exit()
+    if command[0] not in COMMANDS:
+        raise err.InvalidInstructionTypeError
+    return COMMANDS[command[0]]
+
 ###################### SORTING ##############
-def quickSort(command):
-    if len(command) <3:
-        raise err.InvalidInstructionTypeError("'quickSort' should have atleast another argument")
-    data = command[2:]
-    try:
-        if command[1]=="int":
-            data = list(map(int, data))
-        else:
-            data = list(map(float, data))
-    except:
-        raise TypeError("Only int and float allowed")
-    data = de.quickSort(data)
-    print("The sorted array is:\n", *data)
-def bubbleSort(command):
-    if len(command) == 1:
-        raise err.InvalidInstructionTypeError("'quickSort' should have atleast another argument")
-    data = command[2:]
-    try:
-        if command[1]=="int":
-            data = list(map(int, data))
-        else:
-            data = list(map(float, data))
-    except:
-        raise TypeError("Only int and float allowed")
-    data = de.bubbleSort(data)
-    print("The sorted array is:\n", *data)
-def insertionSort(command):
-    if len(command) == 1:
-        raise err.InvalidInstructionTypeError("'quickSort' should have atleast another argument")
-    data = command[2:]
-    try:
-        if command[1]=="int":
-            data = list(map(int, data))
-        else:
-            data = list(map(float, data))
-    except:
-        raise TypeError("Only int and float allowed")
-    data = de.quickSort(data)
-    print("The sorted array is:\n", *data)
+def sortData(command, sorter):
+
+    if len(command) < 3:
+        raise err.InvalidInstructionTypeError
+
+    if command[1] == "int":
+        data = list(map(int, command[2:]))
+    else:
+        data = list(map(float, command[2:]))
+
+    data = sorter(data)
+
+    print("Sorted:", *data)
+def quickSort(command): sortData(command, de.quickSort)
+def bubbleSort(command): sortData(command, de.bubbleSort)
+def insertionSort(command): sortData(command, de.insertionSort)
 
 ########### FILE HANDLING #####################
 import sys
-def identifyFileCommand(command):
-    if len(command)==1:
-        match command[0]:
-            case "file.close": sys.exit(0)
-            case "mean": return wholeMean
-            case "median": return wholeMedian
-            case "mode": return wholeMode
-            case "var": return wholeVar
-            case "std_dev": return wholeStd_dev
-            case "exit": sys.exit(0)
-            case "_": raise err.InvalidInstructionTypeError(f"{command[0]} is not a valid command")
-    else:
-        match command[0]:
-            case "mean": return labelMean
-            case "median": return labelMedian
-            case "mode": return labelMode
-            case "var": return labelVar
-            case "std_dev": return labelStd_dev
-            case "_": raise err.InvalidInstructionTypeError(f"{command[0]} is not a valid command")
-def labelMean(file, command):
-    meanList = de.meanWhole(file)
-    labelList = de.getLabels(file)
-    
-    label = "".join(command[1:])
-    label = label.capitalize()
-    print(labelList)
-    if label in labelList:
-        idx = labelList.index(label)
-        print(f"Mean: {meanList[idx]:.2f}")
-def labelMedian(file, command):
-    medianList = de.medianWhole(file)
-    labelList = de.getLabels(file)
-    
-    label = "".join(command[1:])
-    label = label.capitalize()
-    print(labelList)
-    if label in labelList:
-        idx = labelList.index(label)
-        print(f"Median: {medianList[idx]:.2f}")
-def labelMode(file, command):
-    modeList = de.modeWhole(file)
-    labelList = de.getLabels(file)
-    
-    label = "".join(command[1:])
-    label = label.capitalize()
-    print(labelList)
-    if label in labelList:
-        idx = labelList.index(label)
-        print(f"Mode: {modeList[idx]:.2f}")
-def labelVar(file, command):
-    varList = de.varWhole(file)
-    labelList = de.getLabels(file)
-    
-    label = "".join(command[1:])
-    label = label.capitalize()
-    print(labelList)
-    if label in labelList:
-        idx = labelList.index(label)
-        print(f"Var: {varList[idx]:.2f}")
-def labelStd_dev(file, command):
-    std_devList = de.std_devWhole(file)
-    labelList = de.getLabels(file)
-    
-    label = "".join(command[1:])
-    label = label.capitalize()
-    print(labelList)
-    if label in labelList:
-        idx = labelList.index(label)
-        print(f"Standard Deviation: {std_devList[idx]:.2f}")
-        
 def load(command):
     fileName = input("Enter the file path: ")
     print("Enter commands:")
@@ -302,28 +139,54 @@ def load(command):
         command1 = process(command1)
         func = identifyFileCommand(command1)
         func(fileName, command1)
-def wholeMean(file, command):
-    meanList = de.meanWhole(file)
-    labelList = de.getLabels(file)
-    for i in range(len(labelList)):
-        print(f"Label: {labelList[i]}, mean: {meanList[i]:.2f}")
-def wholeMedian(file, command):
-    medianList = de.medianWhole(file)
-    labelList = de.getLabels(file)
-    for i in range(len(labelList)):
-        print(f"Label: {labelList[i]}, median: {medianList[i]:.2f}")
-def wholeMode(file, command):
-    modeList = de.modeWhole(file)
-    labelList = de.getLabels(file)
-    for i in range(len(labelList)):
-        print(f"Label: {labelList[i]}, mode: {modeList[i]:.2f}")
-def wholeVar(file, command):
-    varList = de.varWhole(file)
-    labelList = de.getLabels(file)
-    for i in range(len(labelList)):
-        print(f"Label: {labelList[i]}, variance: {varList[i]:.2f}")
-def wholeStd_dev(file, command):
-    stdList = de.std_devWhole(file)
-    labelList = de.getLabels(file)
-    for i in range(len(labelList)):
-        print(f"Label: {labelList[i]}, Standard Deviation: {stdList[i]:.2f}")
+def identifyFileCommand(command):
+    if command[0] in ["exit", "file.close"]:
+        sys.exit()
+    if command[0] not in FILE_COMMANDS:
+        raise err.InvalidInstructionTypeError
+    whole, label = FILE_COMMANDS[command[0]]
+    return whole if len(command) == 1 else label
+
+def labelStat(file, command):
+    stat = command[0]
+    values = FILE_STATS[stat](file)
+    labels = de.getLabels(file)
+    label = "".join(command[1:]).capitalize()
+    if label in labels:
+        i = labels.index(label)
+        print(f"{stat}: {values[i]:.2f}")
+FILE_STATS = {
+    "mean": de.meanWhole,
+    "median": de.medianWhole,
+    "mode": de.modeWhole,
+    "var": de.varWhole,
+    "std_dev": de.std_devWhole
+}
+def wholeStat(file, command):
+    stat = command[0]
+    values = FILE_STATS[stat](file)
+    labels = de.getLabels(file)
+
+    for l, v in zip(labels, values):
+        print(f"{l}: {v:.2f}")
+FILE_COMMANDS = {
+    "mean": (wholeStat, labelStat),
+    "median": (wholeStat, labelStat),
+    "mode": (wholeStat, labelStat),
+    "var": (wholeStat, labelStat),
+    "std_dev": (wholeStat, labelStat),
+}
+COMMANDS = {
+    "matmul": matmul,
+    "matadd": matadd,
+    "matsub": matsub,
+    "mean": meanData,
+    "median": medianData,
+    "mode": modeData,
+    "var": varData,
+    "std_dev": stdData,
+    "load": load,
+    "quicksort": quickSort,
+    "bubblesort": bubbleSort,
+    "insertionsort": insertionSort,
+}
