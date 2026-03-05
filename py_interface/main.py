@@ -1,22 +1,25 @@
 import data_engine as de
 import inputProcessing as ip
 import sys
-# nums = [5, 2, 8, 1, 3]
 
-# print(de.insertionSort(nums))
+import os
+import platform
+
+def clearScreen():
+    """Clear the terminal screen in a cross-platform way."""
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
+clearScreen()
 
 while True:
-    command = input()
+    command = input(">>>> ")
     command = ip.process(command)
-    if command == "exit":
+    if command[0] == "exit":
         sys.exit(0)
-    print(command[0])
-    if not ip.isLoad(command):
-        func= ip.identify(command)
-        func(command)
-
-    # else: #FILE MODE
-    #     file_name = input("Enter file name: ")
-
-    #     while True:
-    #         sub_command = input()
+    elif command[0] == "cls" or command[0] == "clear":
+        clearScreen()
+        continue
+    func= ip.identify(command)
+    func(command)

@@ -1,11 +1,12 @@
 import data_engine as de
 import errorHandling as err
+############ BASIC PROCESSING ##############
 def process(command):
     command = command.strip().split()
     for i in range(len(command)):
         command[i] = command[i].strip().lower()
     return command
-
+################# MATRIX ####################
 def flatten(mat):
     return [elem for row in mat for elem in row]
 def reshape(flat, r):
@@ -48,12 +49,53 @@ def outputMatrix(command, final):
 def printMatrix(matrix):
     for i in range(len(matrix)):
         print(" ".join(map(str, matrix[i])))
-    
+def matadd(command):
+    pass  
+def matsub(command):
+    pass  
 
-def isLoad(command):
-    return command == "load"
+################# Standard Data ###################
+
+
+def meanData(command):
+    if len(command)== 1:
+        raise err.InvalidInstructionTypeError("'mean' should have atleast another argument")
+    data = command[1:]
+    data = list(map(float, data)) 
+    print(f"The mean of the data is: {de.mean(data)}")
+
+def medianData(command):
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError("'median' should have atleast another argument")
+    data = command[1:]
+    data = list(map(float, data))
+    print(f"The median of thee data is: {de.median(data)}")
+def modeData(command):
+    if len(command) == 1:
+        raise err.InvalidInstructionTypeError("'mode' should have atleast another argument")
+    data = command[1:]
+    data = list(map(float, data))
+    print(f"The mode of the data is: {de.mode(data)}")
+
+
+
+
+################# IDENTIFICATION ##################
 
 def identify(command):
-    if (command[0]== 'matmul'):
-        return matmul
+    match command[0]:
+        case "matmul": return matmul
+        case "matadd": return matadd
+        case "matsub": return matsub
+        case "mean": return meanData
+        case "median": return medianData
+        case "mode": return modeData
+        case "var": return varData
+        case "std_dev": return std_devData
+        case "load": return load
+        case "exit": exit()
+
+        
+
+    
 

@@ -31,6 +31,8 @@ datatype: int or float
 
 >  - `var` data
 
+>  - `clear` OR `cls` to clear the screen before continuing
+
 Can calculate more than one tendency too
 
 >  - `mode` `std_dev` data
