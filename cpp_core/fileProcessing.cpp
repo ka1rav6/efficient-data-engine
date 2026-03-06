@@ -114,6 +114,51 @@ dbllist std_devWhole(string fileName){
     }
     return std_devs;
 }
+dbllist rangeWhole(string fileName){
+    strlist labels = getLabels(fileName);
+    vector<dbllist> finallist = fileHandle(fileName);
+    dbllist ranges;
+    for (dbllist vec: finallist){
+        ranges.push_back(range(vec));
+    }
+    return ranges;
+}
+dbllist miniWhole(string fileName){
+    strlist labels = getLabels(fileName);
+    vector<dbllist> finallist = fileHandle(fileName);
+    dbllist minis;
+    for (dbllist vec: finallist){
+        minis.push_back(mini(vec));
+    }
+    return minis;
+}
+dbllist maxiWhole(string fileName){
+    strlist labels = getLabels(fileName);
+    vector<dbllist> finallist = fileHandle(fileName);
+    dbllist maxis;
+    for (dbllist vec: finallist){
+        maxis.push_back(maxi(vec));
+    }
+    return maxis;
+}
+dbllist zscoreWhole(string fileName, double val){
+    strlist labels = getLabels(fileName);
+    vector<dbllist> finallist = fileHandle(fileName);
+    dbllist zscores;
+    for (dbllist vec: finallist){
+        zscores.push_back(zscore(vec, val));
+    }
+    return zscores;
+}
+dbllist percentileWhole(string fileName, double val){
+    strlist labels = getLabels(fileName);
+    vector<dbllist> finallist = fileHandle(fileName);
+    dbllist percentiles;
+    for (dbllist vec: finallist){
+        percentiles.push_back(percentile(vec, val));
+    }
+    return percentiles;
+}
 
 
 

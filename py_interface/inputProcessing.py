@@ -149,13 +149,26 @@ def identifyFileCommand(command):
     if command[0] not in FILE_COMMANDS:
         raise err.InvalidInstructionTypeError
     whole, label = FILE_COMMANDS[command[0]]
+    if (command[0] in ["zscore", "percentile"]):
+        return whole if len(command)==2 else label
     return whole if len(command) == 1 else label
 
 def labelStat(file, command):
     stat = command[0]
-    values = FILE_STATS[stat](file)
+    special = False
+    try:
+        num =float(command[1])
+        special = True
+        label = "".join(command[2:]).capitalize()
+    except:
+        pass
+    if not special:
+        values = FILE_STATS[stat](file)
+        label = "".join(command[1:]).capitalize()
+    else:
+        values = FILE_STATS[stat](file, num)
     labels = de.getLabels(file)
-    label = "".join(command[1:]).capitalize()
+    
     if label in labels:
         i = labels.index(label)
         print(f"{stat}: {values[i]:.2f}")
@@ -165,15 +178,25 @@ FILE_STATS = {
     "mode": de.modeWhole,
     "var": de.varWhole,
     "std_dev": de.std_devWhole,
-    "min": de.min,
-    "max": de.max,
-    "range": de.range
+    "min": de.miniWhole,
+    "max": de.maxiWhole,
+    "range": de.rangeWhole,
+    "zscore": de.zscoreWhole,
+    "percentile": de.percentileWhole
 }
 def wholeStat(file, command):
     stat = command[0]
-    values = FILE_STATS[stat](file)
+    special = False
+    try:
+        num =float(command[1])
+        special = True
+    except:
+        pass
+    if not special:
+        values = FILE_STATS[stat](file)
+    else:
+        values = FILE_STATS[stat](file, num)
     labels = de.getLabels(file)
-
     for l, v in zip(labels, values):
         print(f"{l}: {v:.2f}")
 FILE_COMMANDS = {
@@ -185,7 +208,8 @@ FILE_COMMANDS = {
     "min" : (wholeStat, labelStat),
     "max" : (wholeStat, labelStat),
     "range" : (wholeStat, labelStat),
-
+    "zscore": (wholeStat, labelStat),
+    "percentile": (wholeStat, labelStat),
 }
 
 COMMANDS = {

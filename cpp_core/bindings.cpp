@@ -28,6 +28,11 @@ PYBIND11_MODULE(data_engine, m){
     m.def("medianWhole", &medianWhole);
     m.def("modeWhole", &modeWhole);
     m.def("varWhole", &varWhole);
+    m.def("miniWhole", &miniWhole);
+    m.def("maxiWhole", &maxiWhole);
+    m.def("rangeWhole", &rangeWhole);
+    m.def("zscoreWhole", &zscoreWhole);
+    m.def("percentileWhole", &percentileWhole);
     m.def("std_devWhole", &std_devWhole);
     m.def("insertionSort", &insertionSort);
     m.def("bubbleSort", &bubbleSort);
