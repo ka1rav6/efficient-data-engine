@@ -3,9 +3,16 @@ import errorHandling as err
 
 ############ BASIC PROCESSING ##############
 def process(command):
-    command = command.strip().split()
-    for i in range(len(command)):
-        command[i] = command[i].strip().lower()
+    try:
+        command = command.strip().split()
+        if "," in command[-1]:
+            temp = command[-1]
+            command.pop(-1)
+            temp = temp.split(",")
+            command += temp
+        command = [subCommand.strip().strip(",").lower() for subCommand in command]
+    except:
+        raise err.InvalidFormat(f"{command} is not a valid format")
     return command
 ################# MATRIX ####################
 def flatten(mat):
@@ -120,13 +127,12 @@ def identify(command):
 
 ###################### SORTING ##############
 def sortData(command, sorter):
-    if len(command) < 3:
+    if len(command) < 3 or command[1] not in ["int", "float"]:
         raise err.InvalidInstructionTypeError
-    if command[1] == "int":
-        data = list(map(int, command[2:]))
-    else:
-        data = list(map(float, command[2:]))
+    data = list(map(float, command[2:]))
     data = sorter(data)
+    if command[1] == "int":
+        data = list(map(int, data))
     print("Sorted:", *data)
     
 def quickSort(command): sortData(command, de.quickSort)

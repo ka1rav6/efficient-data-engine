@@ -9,3 +9,6 @@ class LowMatrixCountError(Exception):
 class InvalidInstructionTypeError(Exception):
     '''When Instruction has less/invalid arguments'''
     pass
+class InvalidFormat(Exception):
+    '''When Instruction has less/invalid arguments'''
+    pass
