@@ -172,6 +172,35 @@ def labelStat(file, command):
     if label in labels:
         i = labels.index(label)
         print(f"{stat}: {values[i]:.2f}")
+def wholeDisplay(fileName, command):
+    val = de.fileHandle(fileName)
+    labels = de.getLabels(fileName)
+
+    width = 12  # column width for padding
+
+    for label in labels:
+        print(f"{label:<{width}}", end="")
+    print()
+    rows = len(val[0])
+    cols = len(labels)
+
+    for j in range(rows):
+        for i in range(cols):
+            print(f"{val[i][j]:<{width}}", end="")
+        print()
+def labelDisplay(fileName, command):
+    val = de.fileHandle(fileName)
+    labels = de.getLabels(fileName)
+    labels = [label.capitalize() for label in labels]
+    label = command[1].capitalize()
+    if label not in labels:
+        print("Label not found.")
+        return
+    idx = labels.index(label)
+    width = 12
+    print(f"{label:<{width}}")
+    for v in val[idx]:
+        print(f"{v:<{width}}")
 FILE_STATS = {
     "mean": de.meanWhole,
     "median": de.medianWhole,
@@ -182,7 +211,7 @@ FILE_STATS = {
     "max": de.maxiWhole,
     "range": de.rangeWhole,
     "zscore": de.zscoreWhole,
-    "percentile": de.percentileWhole
+    "percentile": de.percentileWhole,
 }
 def wholeStat(file, command):
     stat = command[0]
@@ -210,6 +239,7 @@ FILE_COMMANDS = {
     "range" : (wholeStat, labelStat),
     "zscore": (wholeStat, labelStat),
     "percentile": (wholeStat, labelStat),
+    "display": (wholeDisplay, labelDisplay)
 }
 
 COMMANDS = {

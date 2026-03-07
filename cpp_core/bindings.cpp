@@ -37,4 +37,5 @@ PYBIND11_MODULE(data_engine, m){
     m.def("insertionSort", &insertionSort);
     m.def("bubbleSort", &bubbleSort);
     m.def("quickSort", &quickSort);
+    m.def("fileHandle", &fileHandle);
 }
