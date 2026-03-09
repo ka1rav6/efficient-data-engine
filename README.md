@@ -273,6 +273,7 @@ This will compile the **C++ computation engine** and generate the Python module 
 - Explore **C++ + Python interoperability**
 - Build a **high-performance computation engine**
 - Practice **pybind11 bindings and CMake builds**
+- Implement concepts like **dispatcher table** and **functions as an object in python**
 
 ---
 

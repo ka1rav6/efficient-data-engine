@@ -98,7 +98,7 @@ def statData(command, func, name):
         raise err.InvalidInstructionTypeError
     data = list(map(float, command[1:]))
     print(f"{name}:", func(data))
-
+## wrappers
 def meanData(command): statData(command, de.mean, "Mean")
 def medianData(command): statData(command, de.median, "Median")
 def modeData(command): statData(command, de.mode, "Mode")
@@ -107,6 +107,7 @@ def stdData(command): statData(command, de.std_dev, "Std Dev")
 def minimumData(command): statData(command, de.min, "Minimum")
 def maximumData(command): statData(command, de.max, "Maximum")
 def rangeData(command): statData(command, de.range, "Range")
+
 
 def statDataMore(command, func, name):
     if len(command) < 3:
@@ -134,7 +135,7 @@ def sortData(command, sorter):
     if command[1] == "int":
         data = list(map(int, data))
     print("Sorted:", *data)
-    
+## wrappers
 def quickSort(command): sortData(command, de.quickSort)
 def bubbleSort(command): sortData(command, de.bubbleSort)
 def insertionSort(command): sortData(command, de.insertionSort)
