@@ -48,8 +48,12 @@ vector<dbllist> fileHandle(string fileName){
         strlist temp = processLine(line);
         dbllist temp2;
         for (string str:temp){
-            double tempvar = stod(str);
-            temp2.push_back(tempvar);
+        try{
+            temp2.push_back(stod(str));
+        }
+        catch(const std::exception& e){
+            throw logic_error("Not a number");
+        }
         }
         initial.push_back(temp2);
     }

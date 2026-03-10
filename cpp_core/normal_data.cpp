@@ -139,7 +139,7 @@ vector<double> matrixSubtract(const vector<double> &A, const vector<double> &B, 
 double mini(const vector<double> &A){
     double minimum=A.at(0);
     for (double elem: A){
-        if (elem<minimum) elem =minimum;
+        if (elem<minimum) minimum = elem;
     }
     return minimum;
 }
@@ -147,7 +147,7 @@ double mini(const vector<double> &A){
 double maxi(const vector<double> &A){
     double maximum=A.at(0);
     for (double elem: A){
-        if (elem>maximum) elem =maximum;
+        if (elem>maximum) maximum = elem;
     }
     return maximum;
 }

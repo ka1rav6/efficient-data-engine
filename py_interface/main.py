@@ -2,15 +2,6 @@ import data_engine as de # type: ignore   ## to ignore the warning error
 import inputProcessing as ip
 import sys
 
-import os
-import platform
-
-def clearScreen():
-    """Clear the terminal screen in a cross-platform way."""
-    if platform.system() == "Windows":
-        os.system("cls")
-    else:
-        os.system("clear")
 def displayCommands():
     NormalCommandDict = {
         "load": "Enter file mode and load a CSV file",
@@ -77,7 +68,7 @@ def displayCommands():
         print()
 
         
-clearScreen()
+ip.clearScreen()
 
 while True:
     command = input(">>>> ")
@@ -87,8 +78,8 @@ while True:
     elif command[0] == "help":
         displayCommands()
         continue
-    elif command[0] == "cls" or command[0] == "clear":
-        clearScreen()
+    elif command[0] in ["cls", "clear"]:
+        ip.clearScreen()
         continue
     func= ip.identify(command)
     func(command)

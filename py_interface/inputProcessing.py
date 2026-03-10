@@ -1,5 +1,14 @@
 import data_engine as de # type: ignore   ## to ignore the warning error 
 import errorHandling as err
+import os
+import platform
+
+def clearScreen():
+    """Clear the terminal screen in a cross-platform way."""
+    if platform.system() == "Windows":
+        os.system("cls")
+    else:
+        os.system("clear")
 
 ############ BASIC PROCESSING ##############
 def process(command):
@@ -148,17 +157,21 @@ def load(command):
     while True:
         command1 = input("\t>>>>  ")
         command1 = process(command1)
+        if command1[0] in ["cls", "clear"]:
+            clearScreen()
+            continue
         func = identifyFileCommand(command1)
         func(fileName, command1)
 def identifyFileCommand(command):
     if command[0] in ["exit", "file.close"]:
         sys.exit()
-    if command[0] not in FILE_COMMANDS:
+    elif command[0] not in FILE_COMMANDS:
         raise err.InvalidInstructionTypeError
-    whole, label = FILE_COMMANDS[command[0]]
-    if (command[0] in ["zscore", "percentile"]):
-        return whole if len(command)==2 else label
-    return whole if len(command) == 1 else label
+    else:
+        whole, label = FILE_COMMANDS[command[0]]
+        if (command[0] in ["zscore", "percentile"]):
+            return whole if len(command)==2 else label
+        return whole if len(command) == 1 else label
 
 def labelStat(file, command):
     stat = command[0]
