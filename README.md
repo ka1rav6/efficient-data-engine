@@ -242,6 +242,16 @@ These files demonstrate:
 # Build System
 
 The project uses **CMake** to build the C++ core and generate Python bindings.
+Whenever a change is made in the cpp_core directory (unless a new file is made. Then the process is differnet) and everything needs to be combined, go back to data_engine directory and run `compile.sh` before running the program.
+To run compile.sh:
+
+```bash 
+./compile.sh
+```
+To make `compile.sh` into an executable (if changed) run: 
+```bash
+chmod +x compile.sh
+```
 
 ### Requirements
 

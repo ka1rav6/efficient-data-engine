@@ -105,7 +105,10 @@ def matsub(command):
 def statData(command, func, name):
     if len(command) == 1:
         raise err.InvalidInstructionTypeError
-    data = list(map(float, command[1:]))
+    try:
+        data = list(map(float, command[1:]))
+    except:
+        raise err.InvalidInstructionTypeError
     print(f"{name}:", func(data))
 ## wrappers
 def meanData(command): statData(command, de.mean, "Mean")
