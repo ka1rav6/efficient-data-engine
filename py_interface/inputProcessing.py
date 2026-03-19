@@ -154,8 +154,13 @@ def insertionSort(command): sortData(command, de.insertionSort)
 
 ########### FILE HANDLING #####################
 import sys
+from pathlib import Path
+
 def load(command):
     fileName = input("Enter the file path: ")
+    file = Path(fileName)
+    if (not file.exists()) or (not file.is_file()) :
+        raise FileNotFoundError     
     print("Enter commands:")
     while True:
         command1 = input("\t>>>>  ")
@@ -195,6 +200,8 @@ def labelStat(file, command):
     if label in labels:
         i = labels.index(label)
         print(f"{stat}: {values[i]:.2f}")
+    else:
+        raise err.LabelDoesNotExist
 def wholeDisplay(fileName, command):
     val = de.fileHandle(fileName)
     labels = de.getLabels(fileName)

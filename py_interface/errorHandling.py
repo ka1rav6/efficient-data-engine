@@ -12,3 +12,6 @@ class InvalidInstructionTypeError(Exception):
 class InvalidFormat(Exception):
     '''When Instruction has less/invalid arguments'''
     pass
+class LabelDoesNotExist(Exception):
+    """When the entered label does not exist"""
+    pass
