@@ -15,13 +15,12 @@ def clearScreen():
 ############ BASIC PROCESSING ##############
 def process(command):
     try:
-        # FIX 3: split commas across ALL tokens, not just the last one
         tokens = command.strip().split()
         result = []
         for token in tokens:
             result.extend(token.split(","))
         command = [t.strip().lower() for t in result if t.strip()]
-    except (ValueError, TypeError):    # FIX 6: specific exception instead of bare except
+    except (ValueError, TypeError):  
         raise err.InvalidFormat(f"{command} is not a valid format")
     return command
 
@@ -62,7 +61,7 @@ def matmul(command):
             final = flatten(final)
         if i != 0:
             final = de.matrixMultiply(final, flatten(temp), r)
-    final = reshapeSquare(final, r)    # FIX 1: call reshapeSquare() so the 3-arg reshape() isn't called with 2 args
+    final = reshapeSquare(final, r)  
     outputMatrix(command, final)
 def outputMatrix(command, final):
     if command[1] == "int":
@@ -136,7 +135,7 @@ def percentileData(command): statDataMore(command, de.percentile, "Percentile")
 ################# IDENTIFICATION ##################
 def identify(command):
     if command[0] == "exit":
-        sys.exit()                     # FIX 2: sys is now imported at the top, so this is always safe
+        sys.exit()  
     if command[0] not in COMMANDS:
         raise err.InvalidInstructionTypeError
     return COMMANDS[command[0]]
@@ -158,7 +157,6 @@ def insertionSort(command):  sortData(command, de.insertionSort)
 
 ########### FILE HANDLING #####################
 def loadFileProcess(command):
-    # FIX 4: properly load the file, then enter the interactive file-mode loop
     if len(command) < 2:
         raise err.InvalidInstructionTypeError
     fileName = command[1]
@@ -206,7 +204,7 @@ def labelStat(file, command):
         num = float(command[1])
         special = True
         label = "".join(command[2:]).capitalize()
-    except (ValueError, IndexError):   # FIX 6: specific exception
+    except (ValueError, IndexError):
         pass
     if not special:
         values = FILE_STATS[stat](file)
@@ -267,14 +265,14 @@ def wholeStat(file, command):
     try:
         num = float(command[1])
         special = True
-    except (ValueError, IndexError):   # FIX 6: specific exception
+    except (ValueError, IndexError):
         pass
     if not special:
         values = FILE_STATS[stat](file)
     else:
         values = FILE_STATS[stat](file, num)
     labels = de.getLabels(file)
-    for label, v in zip(labels, values):   # FIX 5: renamed l -> label
+    for label, v in zip(labels, values):
         print(f"{label}: {v:.2f}")
 
 FILE_COMMANDS = {
