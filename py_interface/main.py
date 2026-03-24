@@ -66,20 +66,12 @@ def displayCommands():
     for k,v in FileCommandDict.items():
         print(f"{k}: {v}")
         print()
-
-        
-ip.clearScreen()
-
-while True:
-    command = input(">>>> ")
-    command = ip.process(command)
-    if command[0] == "exit":
-        sys.exit(0)
-    elif command[0] == "help":
-        displayCommands()
-        continue
-    elif command[0] in ["cls", "clear"]:
-        ip.clearScreen()
-        continue
-    func= ip.identify(command)
-    func(command)
+import io
+import contextlib
+def run_command(raw_string):
+    command = ip.process(raw_string)   # add this
+    f = io.StringIO()
+    with contextlib.redirect_stdout(f):
+        func = ip.identify(command)
+        func(command)
+    return f.getvalue()
