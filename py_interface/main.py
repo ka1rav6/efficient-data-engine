@@ -1,6 +1,8 @@
 import data_engine as de # type: ignore   ## to ignore the warning error 
 import inputProcessing as ip
 import sys
+import io
+import contextlib
 
 def displayCommands():
     NormalCommandDict = {
@@ -66,8 +68,6 @@ def displayCommands():
     for k,v in FileCommandDict.items():
         print(f"{k}: {v}")
         print()
-import io
-import contextlib
 def run_command(raw_string):
     command = ip.process(raw_string)   # add this
     f = io.StringIO()

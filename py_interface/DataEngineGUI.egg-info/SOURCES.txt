@@ -1,0 +1,5 @@
+setup.py
+DataEngineGUI.egg-info/PKG-INFO
+DataEngineGUI.egg-info/SOURCES.txt
+DataEngineGUI.egg-info/dependency_links.txt
+DataEngineGUI.egg-info/top_level.txt
